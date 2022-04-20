@@ -1,17 +1,13 @@
 from rest_framework import serializers
-from .models import Item
+from .models import Item, Receipt
 
-class ItemSerializer(serializers.Serializer):
-    title = serializers.CharField(max_length=255)
-    price = serializers.FloatField()
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ['title', 'price']
 
-    def create(self, validated_data):
-        return Item.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.price = validated_data.get('price', instance.price)
-
-        instance.save()
-        return instance
-
+class ReceiptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Receipt
+        fields = ['data', 'datetime']
