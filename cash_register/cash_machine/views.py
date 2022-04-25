@@ -24,7 +24,7 @@ def get_html(id_list, products, receipt):
         summ += product.price * c[product.pk]
         data.append(dict({
             'title': product.title,
-            'cost': summ,
+            'cost': product.price,
             'counter': c[product.pk]
         }))
     return render_to_string('cash_receipt.html',
@@ -34,7 +34,7 @@ def make_qr(input_data):
     print(input_data)
     qr = qrcode.QRCode(
         version=2,
-        box_size=50,
+        box_size=25,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
         border=5)
     qr.add_data(input_data)
